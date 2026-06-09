@@ -4,8 +4,8 @@
   config(
     target_schema='snapshots',
     unique_key='store_number',
-    strategy='timestamp',
-    updated_at='updated_at',
+    strategy='check',
+    check_cols=['store_name', 'address', 'city', 'zip_code'],
   )
 }}
 
@@ -13,15 +13,16 @@ WITH
 store AS (
     SELECT
         store_number,
-        store_name,
-        address,
-        city,
-        REGEXP_REPLACE(zip_code, r"\.0$", "") zip_code,
-        county_number,
-        county,
+        ANY_VALUE(store_name) store_name,
+        ANY_VALUE(address) address,
+        ANY_VALUE(city) city,
+        REGEXP_REPLACE(ANY_VALUE(zip_code), r"\.0$", "") zip_code,
+        ANY_VALUE(county_number) county_number,
+        ANY_VALUE(county) county,
         date
     FROM
         {{ source('iowa_liquor_sales', 'sales') }}
+    GROUP BY store_number, date
 ),
 grouped_data AS (
     SELECT DISTINCT

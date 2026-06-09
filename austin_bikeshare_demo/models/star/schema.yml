@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_stations
+    description: "Dimension table for station"
+    columns:
+      - name: station_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: council_district_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_council_district')
+                field: council_district_id
+      - name: property_type_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_property_type')
+                field: property_type_id
+      - name: power_type_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_power_type')
+                field: power_type_id

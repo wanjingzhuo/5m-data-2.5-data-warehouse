@@ -1,0 +1,13 @@
+austin_bikeshare_demo: # dbt project name
+  outputs:
+    dev:
+      dataset: austin_bikeshare # dataset name created in BigQuery
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: dsai-module-2-495919
+      threads: 2
+      type: bigquery
+  target: dev

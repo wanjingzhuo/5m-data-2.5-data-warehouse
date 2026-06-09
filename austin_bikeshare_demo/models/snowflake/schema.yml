@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_council_district
+    columns:
+      - name: council_district_id
+        tests:
+          - unique
+          - not_null
+  - name: dim_property_type
+    columns:
+      - name: property_type_id
+        tests:
+          - unique
+          - not_null
+      - name: property_type_name
+        tests:
+          - not_null
+  - name: dim_power_type
+    columns:
+      - name: power_type_id
+        tests:
+          - unique
+          - not_null
+      - name: power_type_name
+        tests:
+          - not_null

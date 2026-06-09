@@ -7,4 +7,4 @@ SELECT
     county_number,
     county,
 FROM {{ ref('store_snapshot') }}
-WHERE CURRENT_TIMESTAMP > dbt_valid_from and dbt_valid_to IS NULL
+WHERE CURRENT_TIMESTAMP > dbt_valid_from and end_at IS NULL
